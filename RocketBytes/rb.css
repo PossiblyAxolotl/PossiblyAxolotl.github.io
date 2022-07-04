@@ -1,0 +1,9 @@
+@font-face {
+    font-family: rocketFont;
+    src: url(font.ttf);
+}
+  
+h1 {
+    font-family: rocketFont;
+    color: rgb(255, 255, 255);
+}
