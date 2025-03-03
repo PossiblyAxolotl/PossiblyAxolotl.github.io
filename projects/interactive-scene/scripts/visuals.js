@@ -69,6 +69,8 @@ function drawBackdrop() {
 
     circle(star.x - camera.x, star.y - camera.y, star.diameter);
   }
+
+  stroke("#201727");
 }
 function deg2rad(degrees) {
   return degrees * (Math.PI / 180);

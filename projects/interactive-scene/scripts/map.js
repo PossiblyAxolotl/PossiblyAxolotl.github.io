@@ -27,9 +27,12 @@ function createMap(data, ignoreCamera = false) {
   
   let exit = data.exit;
   addExit(exit.x,exit.y,exit.w,exit.h,exit.leadTo);
+
+  // set state to start game
+  gameState = "game";
 }
 
-function loadMap(path) {
+function loadMap(path) { // guess what this does
   loadJSON(path, createMap);
 }
 

@@ -9,7 +9,7 @@
 // - Storing levels in JSON to be loaded 
 // - Generating shapes with math functions
 
-let gameState = "game";
+let gameState = "title";
 let lavaHeight = 500;
 
 function setup() {
@@ -20,12 +20,21 @@ function setup() {
   strokeJoin(ROUND);
   strokeWeight(4);
 
+  // text
+  textAlign(CENTER, CENTER);
+  textFont(loadFont("Langar-Regular.ttf"));
+
   makeStars();
 
-  loadMap("./levels/1.json");
+  //loadMap("./levels/1.json");
+  startTitle();
 }
 
 function draw() {
+  // always there regardless of mode
+  background("#382d43");
+  drawBackdrop(); // smoke particles
+
   if (gameState === "game") {
     gameDraw();
   } 
@@ -35,9 +44,6 @@ function draw() {
 }
 
 function gameDraw() {
-  background("#382d43");
-
-  drawBackdrop(); // smoke particles
   
   // player movement
   changePlayerVelocity();
@@ -50,12 +56,10 @@ function gameDraw() {
   updateBoxes();
   killPlane();
 
-  stroke("#201727");
-
   // drawing
   drawBoxes();
   drawPlayer();
-  
+
   drawLava();
 }
 
@@ -65,7 +69,7 @@ function killPlane() {
     reloadMap();
   }
 
-  lavaHeight -= deltaTime * 0.01;
+  lavaHeight -= deltaTime * 0.02;
 }
 
 // Window settings
