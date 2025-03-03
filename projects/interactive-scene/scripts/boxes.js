@@ -1,10 +1,10 @@
 let colliders = [];
-let exits     = [];
+let exit      = {};
 
 // generic box functions
 function resetBoxes() {
   colliders = [];
-  exits     = [];
+  exit      = {};
 }
 
 function updateBoxes() {
@@ -14,7 +14,7 @@ function updateBoxes() {
 function drawBoxes() {
   boxListRect(colliders);
   //boxListRect(exits);
-  pulseCircle(exits[0].x, exits[0].y);
+  spinTriangle(exit.x, exit.y);
 }
 
 function boxRect(genericBox) {
@@ -53,21 +53,19 @@ function collide1D(position, velocity, barrier, end = null) {
 }
 
 // Exits
-function addExit(x,y,w,h,leadTo) {
-  exits.push ({
+function addExit(x,y,w,h,leadTo) { // could be setExit now; changed to only one exit
+  exit = {
     x,y,w,h,leadTo,
     "col":"#0ce6f2"
-  });
+  };
 }
 
 function checkExits() {
-  for (let exit of exits) {
-    // horizontally inline
-    if (player.x + player.w > exit.x && player.x < exit.x + exit.w) {
-      // vertically inline
-      if (player.y+ player.h > exit.y && player.y < exit.y + exit.h) {
-        loadMap(exit.leadTo);
-      }
+  // horizontally inline
+  if (player.x + player.w > exit.x && player.x < exit.x + exit.w) {
+    // vertically inline
+    if (player.y+ player.h > exit.y && player.y < exit.y + exit.h) {
+      loadMap(exit.leadTo);
     }
   }
 }

@@ -7,7 +7,9 @@
 // Extra for Experts:
 // - Using multiple scripts to separate code
 // - Storing levels in JSON to be loaded 
+// - Generating shapes with math functions
 
+let gameState = "game";
 let lavaHeight = 500;
 
 function setup() {
@@ -24,9 +26,18 @@ function setup() {
 }
 
 function draw() {
+  if (gameState === "game") {
+    gameDraw();
+  } 
+  else {
+    titleDraw();
+  }
+}
+
+function gameDraw() {
   background("#382d43");
 
-  drawBackdrop();
+  drawBackdrop(); // smoke particles
   
   // player movement
   changePlayerVelocity();
@@ -37,7 +48,6 @@ function draw() {
  
   // misc. updating
   updateBoxes();
-
   killPlane();
 
   stroke("#201727");

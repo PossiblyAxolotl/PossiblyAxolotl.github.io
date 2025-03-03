@@ -1,15 +1,14 @@
 let stars = [];
 
+const triangleSize = 24;
 const lavaSplits = 16;
-const lavaBetweenSize = width / lavaSplits;
-
 
 // lava
 function drawLava() {
   fill("#fd724e");
   beginShape();
   
-  let lavaBetweenSize = width / lavaSplits;
+  lavaBetweenSize = width / lavaSplits;
 
   for (let i = 0; i<lavaSplits+1; i++) {
     vertex(i * lavaBetweenSize, lavaHeight-camera.y + 8*Math.sin((millis() + i*120 + camera.x) / 160));
@@ -71,21 +70,25 @@ function drawBackdrop() {
     circle(star.x - camera.x, star.y - camera.y, star.diameter);
   }
 }
-function degrees_to_radians(degrees)
-{
-  // Store the value of pi.
-  let pi = Math.PI;
-  // Multiply degrees by pi divided by 180 to convert to radians.
-  return degrees * (pi/180);
+function deg2rad(degrees) {
+  return degrees * (Math.PI / 180);
 }
 // exit
-function pulseCircle(x, y) {
-  fill("red");
+function spinTriangle(x, y) {
+  fill("#0ce6f2");
   beginShape();
 
-  for (let i = 0; i<16; i++) {
-    vertex(x + Math.sin(degrees_to_radians(i * 22.5)) * (30 + Math.cos(millis()/30)*3) - camera.x, y - Math.cos(degrees_to_radians(i * 22.5)) * (30 + Math.sin(millis()/30)*3) - camera.y);
-  }
+  x = x - camera.x + triangleSize/2;
+  y = y - camera.y + triangleSize/2;
+
+  let x1 = x - Math.sin(deg2rad(millis() / 10 + 120)) * triangleSize;
+  let x2 = x + Math.sin(deg2rad(millis() / 10 + 240)) * triangleSize;
+  let x3 = x + Math.sin(deg2rad(millis() / 10 + 360)) * triangleSize;
+  let y1 = y + Math.cos(deg2rad(millis() / 10 + 120)) * triangleSize;
+  let y2 = y + Math.cos(deg2rad(millis() / 10 + 240)) * triangleSize;
+  let y3 = y + Math.cos(deg2rad(millis() / 10 + 360)) * triangleSize;
+
+  triangle(x1,y1,x2,y2,x3,y3);
 
   endShape();
 }

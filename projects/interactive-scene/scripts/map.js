@@ -12,8 +12,9 @@ function createMap(data, ignoreCamera = false) {
 
   player.canJump = false;
 
-  lavaHeight = 500;
+  lavaHeight = 500; // reset lava to bottom
   
+  // if you reset the level let the camera gradually move up
   if (!ignoreCamera) {
     camera.y = player.y - height / 2;
   }
@@ -23,9 +24,9 @@ function createMap(data, ignoreCamera = false) {
   for (let platform of data.platforms) {
     addCollider(platform.x,platform.y,platform.w,platform.h,platform.col);
   }
-  for (let exit of data.exits) {
-    addExit(exit.x,exit.y,exit.w,exit.h,exit.leadTo);
-  }
+  
+  let exit = data.exit;
+  addExit(exit.x,exit.y,exit.w,exit.h,exit.leadTo);
 }
 
 function loadMap(path) {
