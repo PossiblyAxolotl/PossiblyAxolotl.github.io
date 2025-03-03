@@ -15,9 +15,7 @@ function titleDraw() {
     text("Scary Lava Game ahh lava rising run away", 0, 200, width);
     
     textSize(32);
-    text("Arrow keys/wasd to move, space/w/up to jump.", 0, height-120, width)
-    text("Hold jump to jump higher.", 0, height-80, width)
-    text("Double click to toggle fullscreen.", 0, height-40, width)
+    text("Arrow keys/wasd to move, space/w/up to jump.\nHold jump to jump higher.\nDouble click to toggle fullscreen.", 0, height-120, width)
 
     // button
     let bWidth = 200;
