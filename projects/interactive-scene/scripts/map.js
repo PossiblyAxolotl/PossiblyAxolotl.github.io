@@ -17,6 +17,7 @@ function createMap(data, ignoreCamera = false) {
   // if you reset the level let the camera gradually move up
   if (!ignoreCamera) {
     camera.y = player.y - height / 2;
+    camera.x = player.x - width  / 2;
   }
   
   // clear boxes and create new ones
@@ -25,6 +26,7 @@ function createMap(data, ignoreCamera = false) {
     addCollider(platform.x,platform.y,platform.w,platform.h,platform.col);
   }
   
+  // set exit location
   let exit = data.exit;
   addExit(exit.x,exit.y,exit.w,exit.h,exit.leadTo);
 

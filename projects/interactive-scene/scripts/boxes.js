@@ -11,16 +11,19 @@ function updateBoxes() {
   checkExits();
 }
 
+// draw all boxes (ground, exit)
 function drawBoxes() {
   boxListRect(colliders);
   //boxListRect(exits);
   spinTriangle(exit.x, exit.y);
 }
 
+// create single box
 function boxRect(genericBox) {
   rect(genericBox.x - camera.x, genericBox.y - camera.y, genericBox.w, genericBox.h);
 }
 
+// create all boxes in list
 function boxListRect(list) {
   for (let box of list) {
     fill(box.col);

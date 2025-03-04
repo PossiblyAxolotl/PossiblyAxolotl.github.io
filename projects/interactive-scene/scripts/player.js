@@ -1,10 +1,10 @@
 let player = {
-  x : 0,
-  y : 0,
+  x  : 0,
+  y  : 0,
   vy : 0,
   vx : 0,
-  w : 20,
-  h : 20,
+  w  : 20,
+  h  : 20,
   
   canJump : false
 };
@@ -33,7 +33,7 @@ function movePlayer() {
 /*
 Doesn't work diagonally as it checks Y and then X, but not X + Y
 can potentially avoid by having all platforms as semi-solid as to not
-bother rewriting. Walls can be solid
+bother rewriting
 */
 function collidePlayer() {
   for (let collider of getColliders()) {

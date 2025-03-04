@@ -8,9 +8,11 @@
 // - Using multiple scripts to separate code
 // - Storing levels in JSON to be loaded 
 // - Generating shapes with math functions
+// - Array for background particles
 
 let gameState = "title";
 let lavaHeight = 500;
+let deaths = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -26,8 +28,8 @@ function setup() {
 
   makeStars();
 
-  //loadMap("./levels/1.json");
-  startTitle();
+  loadMap("./levels/2.json");
+  //startTitle();
 }
 
 function draw() {
@@ -61,15 +63,17 @@ function gameDraw() {
   drawPlayer();
 
   drawLava();
+
+  overlayDraw();
 }
 
 // misc functions
 function killPlane() {
-  if (player.y > lavaHeight + 20) {
+  if (player.y > lavaHeight + 30) {
     reloadMap();
   }
 
-  lavaHeight -= deltaTime * 0.02;
+  lavaHeight -= deltaTime * 0.025;
 }
 
 // Window settings
