@@ -2,6 +2,8 @@ function startTitle() {
   camera.x  = 0;
   camera.y  = 0;
   gameState = "title";
+
+  textAlign(CENTER, CENTER);
 }
 
 function titleDraw() {
@@ -35,6 +37,7 @@ function titleDraw() {
     // vertically inline
     if (mouseY > top && mouseY < bottom) {
       if (mouseIsPressed) {
+        startGame();
         loadMap("./levels/1.json");
       }
     }
@@ -42,7 +45,13 @@ function titleDraw() {
 }
 
 // Game ui
+function startGame() {
+  textAlign(LEFT, TOP);
+  deaths = 0;
+  startTime = millis();
+}
+
 function overlayDraw() {
   fill("white");
-  text("Deaths: " + deaths, 0, 0);
+  text("Deaths: " + deaths + "\nTime: " + Math.round((millis()-startTime)/10)/100, 4, 4);
 }

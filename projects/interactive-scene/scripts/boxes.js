@@ -68,7 +68,7 @@ function checkExits() {
   if (player.x + player.w > exit.x && player.x < exit.x + exit.w) {
     // vertically inline
     if (player.y+ player.h > exit.y && player.y < exit.y + exit.h) {
-      loadMap(exit.leadTo);
+      exit.leadTo === "title" ? startTitle() : loadMap(exit.leadTo);
     }
   }
 }

@@ -12,7 +12,9 @@
 
 let gameState = "title";
 let lavaHeight = 500;
+
 let deaths = 0;
+let startTime = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -23,13 +25,12 @@ function setup() {
   strokeWeight(4);
 
   // text
-  textAlign(CENTER, CENTER);
   textFont(loadFont("Langar-Regular.ttf"));
 
   makeStars();
 
-  loadMap("./levels/2.json");
-  //startTitle();
+  //loadMap("./levels/2.json");
+  startTitle();
 }
 
 function draw() {
@@ -71,6 +72,7 @@ function gameDraw() {
 function killPlane() {
   if (player.y > lavaHeight + 30) {
     reloadMap();
+    deaths ++;
   }
 
   lavaHeight -= deltaTime * 0.025;
