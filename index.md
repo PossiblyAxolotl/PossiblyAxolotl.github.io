@@ -3,6 +3,7 @@
 # CS30 Demos
 * [Colour Swap Timer](/demos/colour-time-swap)
 * [Traffic Light](/demos/traffic-lights)
+* [Bouncing Balls](/demos/bouncing-balls)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
