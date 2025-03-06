@@ -7,3 +7,4 @@
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
+* [Arrays  & Object Notation](/projects/arrays-object-notation)
