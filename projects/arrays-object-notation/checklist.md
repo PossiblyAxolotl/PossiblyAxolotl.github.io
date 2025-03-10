@@ -1,0 +1,12 @@
+- [ ] Use at least one array in your project.Consider using push() and/or pop() to alter the array as your program is running.
+- [ ] Use object notation to contain multiple properties in one variable.
+---
+- [ ] An array is created and used correctly in the project.
+- [ ] Object notation is used correctly in the project.
+- [ ] Includes header and code is well commented (not too much, not too little)
+- [ ] Variable names follow JavaScriptConventionalNames. Whitespace is used appropriately. ESLint does not give any errors/warnings.
+- [ ] The code is efficient without sacrificing readability and understanding. Excellent use of functions and objects where appropriate to improve efficiency.
+- [ ] Committed to GitHub at least once for every work time given in class. GitHub commit messages are clear about what was accomplished.
+- [ ] Extra for experts have been attempted OR it is clear that the student has gone above and beyond the basic version of the assignment. A note has been left in the comment header describing which part of the assignment should be considered for the Wow Me Factor.
+---
+### Disc room-type game with online players
