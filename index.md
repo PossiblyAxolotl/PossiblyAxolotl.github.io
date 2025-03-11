@@ -5,6 +5,7 @@
 * [Traffic Light](/demos/traffic-lights)
 * [Bouncing Balls](/demos/bouncing-balls)
 * [Generative Art](/demos/generative-art)
+* [Perlin Noise](/demos/perlin-noise)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)

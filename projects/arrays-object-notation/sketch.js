@@ -3,11 +3,10 @@
 // Date
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
-// https://p5party.org/
+// - p5party online multiplayer
 
-const roomWidth = 700;
-const roomHeight = 400;
+const roomWidth = 500;
+const roomHeight = 500;
 
 let shared;
 let player;
@@ -20,22 +19,33 @@ function preload() {
   );
 
   shared = partyLoadShared("global");
-  player = partyLoadMyShared({ x: 200, y: 200 });
+  player = partyLoadMyShared({ pos: {x: 200, y: 20}, alive: true });
   players = partyLoadGuestShareds();
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  stroke("white");
+  noFill();
+  strokeWeight(4);
+  strokeJoin(ROUND);
+
   if (partyIsHost()) {
-    partySetShared(shared, {discs: []});
+    partySetShared(shared, { discs: [], inMatch: false });
   }
 }
 
 function draw() {
   background(0);
-  fill("white");
   rect(width/2 - roomWidth/2, height/2 - roomHeight/2, roomWidth, roomHeight);
+
+  player.pos.x += horizontalButtons();
+  player.pos.y += verticalButtons();
+
+  for (let p of players) {
+    rect(width/2 + p.pos.x, height/2 + p.pos.y, 10, 10);
+  }
 }
 
 // Window settings
