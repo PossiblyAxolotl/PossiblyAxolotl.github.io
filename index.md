@@ -6,6 +6,7 @@
 * [Bouncing Balls](/demos/bouncing-balls)
 * [Generative Art](/demos/generative-art)
 * [Perlin Noise](/demos/perlin-noise)
+* [Terrain Generation](/demos/terrain-generation)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
