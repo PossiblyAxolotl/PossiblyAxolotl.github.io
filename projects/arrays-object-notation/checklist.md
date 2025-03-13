@@ -1,8 +1,8 @@
-- [ ] Use at least one array in your project.Consider using push() and/or pop() to alter the array as your program is running.
-- [ ] Use object notation to contain multiple properties in one variable.
+- [x] Use at least one array in your project.Consider using push() and/or pop() to alter the array as your program is running.
+- [x] Use object notation to contain multiple properties in one variable.
 ---
-- [ ] An array is created and used correctly in the project.
-- [ ] Object notation is used correctly in the project.
+- [x] An array is created and used correctly in the project.
+- [x] Object notation is used correctly in the project.
 - [ ] Includes header and code is well commented (not too much, not too little)
 - [ ] Variable names follow JavaScriptConventionalNames. Whitespace is used appropriately. ESLint does not give any errors/warnings.
 - [ ] The code is efficient without sacrificing readability and understanding. Excellent use of functions and objects where appropriate to improve efficiency.

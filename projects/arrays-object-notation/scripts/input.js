@@ -15,8 +15,7 @@ function buttonDown() {
   return keyIsDown(DOWN_ARROW) || keyIsDown(83) /* S */ || keyIsDown(75) /* K */;
 }
 
-//---//---//---//---//
-
+// Axis functions
 function horizontalButtons() {
   return buttonRight() - buttonLeft();
 }
@@ -25,8 +24,7 @@ function verticalButtons() {
   return buttonDown() - buttonUp();
 }
 
-//---//---//---//---//
-
+// Both axes
 function input() {
   return { x: horizontalButtons(), y: verticalButtons() };
 }
