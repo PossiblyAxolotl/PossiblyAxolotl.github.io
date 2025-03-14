@@ -1,10 +1,12 @@
+const MOVE_SPEED = 2;
+
 // Player drawing
 function drawPlayers() {
   let o = getOffset();
   // Player will be an image so anchor will be in the center
   for (let p of players) {
     stroke(p.colour);
-    rect(o.x + p.pos.x, o.y + p.pos.y, 10, 10);
+    rect(o.x + p.pos.x - 5, o.y + p.pos.y - 5, 10, 10);
   }
 }
 

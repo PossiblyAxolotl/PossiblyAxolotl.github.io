@@ -1,15 +1,13 @@
-// Project Title
-// Your Name
-// Date
+// Disc Room Ripoff
+// PossiblyAxolotl
+// March 20, 2025
 //
 // Extra for Experts:
 // - p5party online multiplayer
 
 const ROOM_WIDTH = 400;
 const ROOM_HEIGHT = 400;
-const ROOM_PADDING = 20;
-
-const MOVE_SPEED = 2;
+const ROOM_PADDING = 100;
 
 let shared;
 let player;
@@ -40,10 +38,12 @@ function setup() {
 
   stroke("white");
   noFill();
-  strokeWeight(4);
+  strokeWeight(2);
   strokeJoin(ROUND);
 
+  noCursor();
 
+  // create new globals if you're the first one in
   if (partyIsHost()) {
     partySetShared(shared, { 
       discs: [], 
@@ -60,7 +60,7 @@ function draw() {
   // processing
   processPlayer();
 
-  // party host only -- make sure it doesn't double up on stuff
+  // party host only -- make sure it doesn't double up processing
   if (partyIsHost()) {
     countdownToSaw();
     processSaws();
@@ -76,18 +76,10 @@ function draw() {
 function drawWalls() {
   stroke("white");
   rect(width/2 - ROOM_WIDTH/2 - ROOM_PADDING/2, height/2 - ROOM_HEIGHT/2 - ROOM_PADDING/2, ROOM_WIDTH + ROOM_PADDING, ROOM_HEIGHT + ROOM_PADDING);
-}
-
-function getOffset() {
-  let x = width/2;
-  let y = height/2;
-  let top = y - ROOM_HEIGHT/2;
-  let bottom = y + ROOM_HEIGHT/2;
-  let left = x - ROOM_WIDTH/2;
-  let right = x + ROOM_WIDTH/2;
-  let padding = ROOM_PADDING;
-
-  return {x, y, top, bottom, left, right, padding};
+  stroke(70);
+  wobbleRect(width/2 - ROOM_WIDTH/2, height/2 - ROOM_HEIGHT/2, ROOM_WIDTH, ROOM_HEIGHT, 1);
+  //line(random(-1, 1) + width/2-ROOM_WIDTH/2,random(-1, 1) + height/2 - ROOM_HEIGHT/2,random(-1, 1) + width/2-ROOM_WIDTH/2,random(-1, 1) + height/2 + ROOM_HEIGHT/2);
+  //rect(width/2 - ROOM_WIDTH/2, height/2 - ROOM_HEIGHT/2, ROOM_WIDTH, ROOM_HEIGHT);
 }
 
 // Window settings
@@ -102,4 +94,16 @@ function windowResized() {
 // helpers
 function deg2rad(degrees) {
   return degrees * (Math.PI/180);
+}
+
+function getOffset() {
+  let x = width/2;
+  let y = height/2;
+  let top = y - ROOM_HEIGHT/2;
+  let bottom = y + ROOM_HEIGHT/2;
+  let left = x - ROOM_WIDTH/2;
+  let right = x + ROOM_WIDTH/2;
+  let padding = ROOM_PADDING;
+
+  return {x, y, top, bottom, left, right, padding};
 }
