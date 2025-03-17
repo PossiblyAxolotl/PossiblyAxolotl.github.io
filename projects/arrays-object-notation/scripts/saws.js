@@ -1,3 +1,5 @@
+const wobbleTime = 3; // time after death to show wobbly
+
 // Sawblades
 function createSaw() {
   let radius = random(20, 50);
@@ -9,6 +11,7 @@ function createSaw() {
     dx: Math.sin(deg2rad(angle)),
     dy: -Math.cos(deg2rad(angle)),
     r: radius,
+    rotDir: random(0, 1) > 0.5 ? -1 : 1,
     
     lifespan: 8,
     spawnedTime: millis()/1000
@@ -26,14 +29,38 @@ function drawSaws() {
   for (let saw of shared.discs) {
     //circle(saw.x + o.x, saw.y + o.y, saw.r*2);
 
-    beginShape();
-    for (let i = 0; i < 9; i++) {
-      let wid = 360 / 8;
-      vertex(saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.r, saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.r);
-      //vertex(saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.r*0.8, saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.r*0.8);
-    }
+    // if about to die
+    if (saw.lifespan + saw.spawnedTime < millis()/1000) {
+      let points = [];
 
-    endShape();
+      for (let i = 0; i < 9; i++) {
+        let wid = 360 / 8;
+        points.push({x: saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.r, y: saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.r});
+        // create saw shape, doubles point count
+        //vertex(saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.r*0.8, saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.r*0.8);
+      } 
+  
+      wobblePoly(points, (millis() / 1000 - (saw.lifespan + saw.spawnedTime)) * 4);
+    } 
+    // not about to die
+    else {
+      beginShape();
+
+      for (let i = 0; i < 9; i++) {
+        let wid = 360 / 8;
+        //saw.rotDir = -(Math.sign(saw.dx) * Math.sign(saw.dy));
+        vertex(saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.r, saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.r);
+        // create saw shape, doubles point count
+        //vertex(saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.r*0.8, saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.r*0.8);
+      }
+  
+      endShape();
+    }
+    /*
+
+    */
+
+
   }
 }
 
@@ -56,7 +83,7 @@ function processSaws() {
     saw.y += saw.dy;
 
     // despawning
-    if (saw.lifespan + saw.spawnedTime < millis()/1000) {
+    if (saw.lifespan + saw.spawnedTime < millis()/1000 - wobbleTime) {
       shared.discs.splice(i, 1);
     }
   }
@@ -64,7 +91,9 @@ function processSaws() {
 
 /// Host only
 function countdownToSaw() {
-  shared.discCountdown -= 0.1;
+  if (shared.discs.length < 10) {
+    shared.discCountdown -= 0.1;
+  }
 
   if (shared.discCountdown <= 0) {
     shared.discCountdownReset -= 0.1; // take less time to spawn next, then reset

@@ -41,7 +41,7 @@ function setup() {
   strokeWeight(2);
   strokeJoin(ROUND);
 
-  noCursor();
+  //noCursor();
 
   // create new globals if you're the first one in
   if (partyIsHost()) {
