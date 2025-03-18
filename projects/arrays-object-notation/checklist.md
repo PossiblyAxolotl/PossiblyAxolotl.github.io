@@ -7,6 +7,6 @@
 - [ ] Variable names follow JavaScriptConventionalNames. Whitespace is used appropriately. ESLint does not give any errors/warnings.
 - [ ] The code is efficient without sacrificing readability and understanding. Excellent use of functions and objects where appropriate to improve efficiency.
 - [ ] Committed to GitHub at least once for every work time given in class. GitHub commit messages are clear about what was accomplished.
-- [ ] Extra for experts have been attempted OR it is clear that the student has gone above and beyond the basic version of the assignment. A note has been left in the comment header describing which part of the assignment should be considered for the Wow Me Factor.
+- [x] Extra for experts have been attempted OR it is clear that the student has gone above and beyond the basic version of the assignment. A note has been left in the comment header describing which part of the assignment should be considered for the Wow Me Factor.
 ---
 ### Disc room-type game with online players

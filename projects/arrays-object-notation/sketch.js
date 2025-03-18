@@ -4,6 +4,8 @@
 //
 // Extra for Experts:
 // - p5party online multiplayer
+// - the game does some weird funky stuff where it processes as if (0,0) is the middle of the screen if that counts
+// - wobbly vector shapes, separate files
 
 const ROOM_WIDTH = 400;
 const ROOM_HEIGHT = 400;
@@ -16,7 +18,7 @@ let players;
 let font;
 
 function preload() {
-  font = loadFont("assets/mechanoid.ttf");
+  font = loadFont("assets/Vector Waves.ttf");
 
   // p5party connecting
   partyConnect(
@@ -26,8 +28,17 @@ function preload() {
 
   // p5party global/shared variables
   shared = partyLoadShared("global");
-  player = partyLoadMyShared({ pos: {x: 0, y: 0, dx: 0, dy: 0}, alive: true, colour: [random(255),random(255),random(255)] });
   players = partyLoadGuestShareds();
+  player = partyLoadMyShared({
+    pos: {
+      x: random(ROOM_WIDTH) - ROOM_WIDTH/2, 
+      y: random(ROOM_HEIGHT) - ROOM_HEIGHT/2, 
+      dx: 0, 
+      dy: 0
+    }, 
+    alive: true, 
+    colour: [random(255),random(255),random(255),255]
+  });
 }
 
 function setup() {
@@ -35,9 +46,8 @@ function setup() {
 
   textFont(font);
   textSize(32);
+  textAlign(CENTER, CENTER);
 
-  stroke("white");
-  noFill();
   strokeWeight(2);
   strokeJoin(ROUND);
 
@@ -49,16 +59,22 @@ function setup() {
       discs: [], 
       inMatch: false, 
       discCountdown: 5, 
-      discCountdownReset: 5 
     });
+  }
+
+  // do not appear until next match
+  if (shared.inMatch) {
+    player.alive = false;
   }
 }
 
 function draw() {
   background(0);
+  noFill();
 
   // processing
   processPlayer();
+  collideWithSaws(player);
 
   // party host only -- make sure it doesn't double up processing
   if (partyIsHost()) {
@@ -70,16 +86,30 @@ function draw() {
   drawPlayers();
   drawSaws();
   drawWalls();
+
+  if (!player.alive) {
+    drawDeadOverlay();
+  }
 }
 
-// Basic drawing
+// General game drawing, not object specific
 function drawWalls() {
   stroke("white");
   rect(width/2 - ROOM_WIDTH/2 - ROOM_PADDING/2, height/2 - ROOM_HEIGHT/2 - ROOM_PADDING/2, ROOM_WIDTH + ROOM_PADDING, ROOM_HEIGHT + ROOM_PADDING);
+  
+  // wobbly player edge wall
   stroke(70);
   wobbleRect(width/2 - ROOM_WIDTH/2, height/2 - ROOM_HEIGHT/2, ROOM_WIDTH, ROOM_HEIGHT, 1);
-  //line(random(-1, 1) + width/2-ROOM_WIDTH/2,random(-1, 1) + height/2 - ROOM_HEIGHT/2,random(-1, 1) + width/2-ROOM_WIDTH/2,random(-1, 1) + height/2 + ROOM_HEIGHT/2);
-  //rect(width/2 - ROOM_WIDTH/2, height/2 - ROOM_HEIGHT/2, ROOM_WIDTH, ROOM_HEIGHT);
+}
+
+function drawDeadOverlay() {
+  noStroke();
+
+  fill("white");
+  text("Spectating", width/2, height/2 - ROOM_WIDTH/2 - 26);
+
+  fill(player.colour[0], player.colour[1], player.colour[2]);
+  text("THIS IS YOUR COLOUR", width/2, height/2 + ROOM_WIDTH/2 + 26);
 }
 
 // Window settings

@@ -6,21 +6,29 @@ function drawPlayers() {
   // Player will be an image so anchor will be in the center
   for (let p of players) {
     stroke(p.colour);
-    rect(o.x + p.pos.x - 5, o.y + p.pos.y - 5, 10, 10);
+    if (p.alive) {
+      rect(o.x + p.pos.x - 5, o.y + p.pos.y - 5, 10, 10);
+    } 
+    else {
+      wobbleRect(o.x + p.pos.x - 5, o.y + p.pos.y - 5, 10, 10, 5);
+    }
   }
 }
 
 // Player movement
 function processPlayer() {
-  let i = input();
+  if (player.alive) {
+    let i = input();
 
-  player.pos.dx = lerp(player.pos.dx, i.x * MOVE_SPEED, 0.2);
-  player.pos.dy = lerp(player.pos.dy, i.y * MOVE_SPEED, 0.2);
+    // smoother movement
+    player.pos.dx = lerp(player.pos.dx, i.x * MOVE_SPEED, 0.2);
+    player.pos.dy = lerp(player.pos.dy, i.y * MOVE_SPEED, 0.2);
+    
+    player.pos.x += player.pos.dx;
+    player.pos.y += player.pos.dy;
   
-  player.pos.x += player.pos.dx;
-  player.pos.y += player.pos.dy;
-
-  clampPlayerPosition();
+    clampPlayerPosition();
+  }
 }
 
 function clampPlayerPosition() {

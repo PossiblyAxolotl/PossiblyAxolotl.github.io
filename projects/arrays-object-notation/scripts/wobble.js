@@ -1,3 +1,13 @@
+function wobblePoly(points, area) {
+  beginShape();
+
+  for (let point of points) {
+    vertex(point.x + random(-area, area), point.y + random(-area, area));
+  }
+
+  endShape();
+}
+
 function wobbleRect(x, y, w, h, area) {
   let points = [
     {x,y},
@@ -8,14 +18,4 @@ function wobbleRect(x, y, w, h, area) {
   ];
 
   wobblePoly(points, area);
-}
-
-function wobblePoly(points, area) {
-  beginShape();
-
-  for (let point of points) {
-    vertex(point.x + random(-area, area), point.y + random(-area, area));
-  }
-
-  endShape();
 }
