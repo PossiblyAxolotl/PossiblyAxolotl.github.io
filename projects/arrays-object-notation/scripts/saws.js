@@ -6,12 +6,13 @@ const SAW_COUNTDOWN_RESET = 5;
 function createSaw() {
   let radius = random(20, 50);
   let angle = Math.round(random(24)) * 15;
+  let speed = random(1, 3);
 
   let newSaw = {
     x: random(-ROOM_WIDTH/2 + radius, ROOM_WIDTH/2 - radius),
     y: random(-ROOM_HEIGHT/2 + radius, ROOM_HEIGHT/2 - radius),
-    dx: Math.sin(deg2rad(angle)),
-    dy: -Math.cos(deg2rad(angle)),
+    dx: Math.sin(deg2rad(angle)) * speed,
+    dy: -Math.cos(deg2rad(angle)) * speed,
 
     radius,
     rotDir: random(0, 1) > 0.5 ? -1 : 1,
