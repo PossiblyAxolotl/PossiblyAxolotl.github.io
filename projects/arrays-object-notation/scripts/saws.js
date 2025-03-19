@@ -40,8 +40,8 @@ function drawSaws() {
       for (let i = 0; i < SAW_SIDES+1; i++) {
         let wid = 360 / SAW_SIDES;
         points.push({
-          x: saw.x + width/2  + Math.sin(deg2rad(wid*i+millis()/10)) * saw.radius, 
-          y: saw.y + height/2 - Math.cos(deg2rad(wid*i+millis()/10)) * saw.radius
+          x: saw.x + width/2  + Math.sin(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius, 
+          y: saw.y + height/2 - Math.cos(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius
         });
       } 
   
