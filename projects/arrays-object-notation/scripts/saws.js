@@ -19,7 +19,7 @@ function createSaw() {
 
     alpha: 100,
     
-    lifespan: 8,
+    lifespan: 10,
   };
 
   return newSaw;
@@ -58,12 +58,13 @@ function drawSaws() {
           saw.y + height/2 - Math.cos(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius
         );
       }
-  
+      
       endShape();
     }
   }
 }
 
+// Host only; reduce jitter w/ only one device processing
 function processSaws() {
   for (let i = shared.discs.length - 1; i >= 0; i--) {
     let saw = shared.discs[i];
@@ -71,21 +72,25 @@ function processSaws() {
     // gradually appear
     if (saw.alpha < 255) {
       saw.alpha += 2.5;
-    } else {
+    } 
+    else {
       saw.lifespan -= deltaTime / 1000;
     }
 
-    // bouncing
+    // bouncing on edges
+    // horiziontal
     if (Math.abs(saw.x) + saw.radius >= ROOM_WIDTH/2 + ROOM_PADDING/2) {
       saw.dx *= -1;
       saw.x = ROOM_WIDTH / 2 * Math.sign(saw.x) + (saw.radius - ROOM_PADDING/2) * -Math.sign(saw.x);
     }
 
+    // vertical
     if (Math.abs(saw.y) + saw.radius >= ROOM_HEIGHT/2 + ROOM_PADDING/2) {
       saw.dy *= -1;
       saw.y = ROOM_HEIGHT / 2 * Math.sign(saw.y) + (saw.radius-ROOM_PADDING/2) * -Math.sign(saw.y);
     }
 
+    // movement
     saw.x += saw.dx;
     saw.y += saw.dy;
 
@@ -108,7 +113,7 @@ function collideWithSaws(p) {
   }
 }
 
-/// Host only
+// Host only
 function countdownToSaw() {
   // count down to next disc
   if (shared.discs.length < 10) {

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Vector Waves";
+  src: url("assets/Vector Waves.ttf");
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,4 +10,21 @@ html, body {
 
 canvas {
   display: block;
+}
+
+* {
+  font-family: "Vector Waves", sans-serif;
+}
+
+#p5_loading { 
+  display: block;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+body:has(#p5_loading) {
+  align-items: center;
+  align-content: center;
+  height: 100vh;
 }

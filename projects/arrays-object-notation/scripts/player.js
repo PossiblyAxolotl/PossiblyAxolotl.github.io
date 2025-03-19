@@ -9,7 +9,7 @@ function drawPlayers() {
     if (p.alive) {
       rect(width/2 + p.pos.x - 5, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE);
     } 
-    // wobblly box
+    // wobbly box
     else {
       wobbleRect(width/2 + p.pos.x - 5, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE, 5);
     }
@@ -21,7 +21,7 @@ function areAllPlayersDead() {
   for (let p of players) {
     if (p.alive) {
       allDead = false;
-      break;
+      break; // only needs one to be alive
     }
   }
 

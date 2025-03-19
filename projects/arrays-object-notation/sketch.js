@@ -22,7 +22,7 @@ let timer = null;
 function preload() {
   font = loadFont("assets/Vector Waves.ttf");
 
-  // p5party connecting
+  // p5party
   partyConnect(
     "wss://demoserver.p5party.org", 
     "disc-room"
@@ -52,7 +52,6 @@ function setup() {
   strokeWeight(2);
   strokeJoin(ROUND);
 
-  //noCursor();
 
   // create new globals if you're the first one in
   if (partyIsHost()) {
@@ -117,13 +116,14 @@ function drawDeadOverlay() {
 function resetToTitle() {
   deleteSaws();
   for (let p of players) {
+    // position
     p.pos.dx = 0;
     p.pos.dy = 0;
 
     p.pos.x = random(ROOM_WIDTH) - ROOM_WIDTH/2, 
     p.pos.y = random(ROOM_HEIGHT) - ROOM_HEIGHT/2, 
 
-    p.colour[3] = 255;
+    p.colour[3] = 255; // set alpha back to max
 
     p.alive = true;
   }
@@ -131,6 +131,7 @@ function resetToTitle() {
   timer = null;
 }
 
+// Host only; only one timer should be made
 function resetIfAllDead() {
   if (!timer && areAllPlayersDead()) {
     timer = window.setTimeout(resetToTitle, 3000);
