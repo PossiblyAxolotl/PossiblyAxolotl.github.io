@@ -48,7 +48,6 @@ function setup() {
 
   textFont(font);
   textSize(32);
-  textAlign(CENTER, CENTER);
 
   strokeWeight(2);
   strokeJoin(ROUND);
@@ -103,12 +102,16 @@ function drawWalls() {
 // death / restart
 function drawDeadOverlay() {
   noStroke();
+  textAlign(CENTER, CENTER);
 
   fill("white");
   text("Spectating", width/2, height/2 - ROOM_WIDTH/2 - 26);
 
   fill(player.colour[0], player.colour[1], player.colour[2]);
   text("THIS IS YOUR COLOUR", width/2, height/2 + ROOM_WIDTH/2 + 26);
+
+  fill("#777777");
+  text("WASD\nIJKL\nARROWS", width/2, height/2);
 }
 
 function resetToTitle() {
