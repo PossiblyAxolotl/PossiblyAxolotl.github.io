@@ -17,6 +17,8 @@ let players;
 
 let font;
 
+let timer = null;
+
 function preload() {
   font = loadFont("assets/Vector Waves.ttf");
 
@@ -36,8 +38,8 @@ function preload() {
       dx: 0, 
       dy: 0
     }, 
-    alive: true, 
-    colour: [random(255),random(255),random(255),255]
+    alive: false, 
+    colour: [random(255), random(255), random(255), 100]
   });
 }
 
@@ -57,14 +59,8 @@ function setup() {
   if (partyIsHost()) {
     partySetShared(shared, { 
       discs: [], 
-      inMatch: false, 
       discCountdown: 5, 
     });
-  }
-
-  // do not appear until next match
-  if (shared.inMatch) {
-    player.alive = false;
   }
 }
 
@@ -80,6 +76,8 @@ function draw() {
   if (partyIsHost()) {
     countdownToSaw();
     processSaws();
+
+    resetIfAllDead();
   }
 
   // drawing
@@ -102,6 +100,7 @@ function drawWalls() {
   wobbleRect(width/2 - ROOM_WIDTH/2, height/2 - ROOM_HEIGHT/2, ROOM_WIDTH, ROOM_HEIGHT, 1);
 }
 
+// death / restart
 function drawDeadOverlay() {
   noStroke();
 
@@ -110,6 +109,29 @@ function drawDeadOverlay() {
 
   fill(player.colour[0], player.colour[1], player.colour[2]);
   text("THIS IS YOUR COLOUR", width/2, height/2 + ROOM_WIDTH/2 + 26);
+}
+
+function resetToTitle() {
+  deleteSaws();
+  for (let p of players) {
+    p.pos.dx = 0;
+    p.pos.dy = 0;
+
+    p.pos.x = random(ROOM_WIDTH) - ROOM_WIDTH/2, 
+    p.pos.y = random(ROOM_HEIGHT) - ROOM_HEIGHT/2, 
+
+    p.colour[3] = 255;
+
+    p.alive = true;
+  }
+
+  timer = null;
+}
+
+function resetIfAllDead() {
+  if (!timer && areAllPlayersDead()) {
+    timer = window.setTimeout(resetToTitle, 3000);
+  }
 }
 
 // Window settings
@@ -124,16 +146,4 @@ function windowResized() {
 // helpers
 function deg2rad(degrees) {
   return degrees * (Math.PI/180);
-}
-
-function getOffset() {
-  let x = width/2;
-  let y = height/2;
-  let top = y - ROOM_HEIGHT/2;
-  let bottom = y + ROOM_HEIGHT/2;
-  let left = x - ROOM_WIDTH/2;
-  let right = x + ROOM_WIDTH/2;
-  let padding = ROOM_PADDING;
-
-  return {x, y, top, bottom, left, right, padding};
 }

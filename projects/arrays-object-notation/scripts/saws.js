@@ -24,9 +24,11 @@ function createSaw() {
   return newSaw;
 }
 
-function drawSaws() {
-  let o = getOffset();
+function deleteSaws() {
+  shared.discs = [];
+}
 
+function drawSaws() {
   for (let saw of shared.discs) {
     stroke(255,255,255,saw.alpha);
 
@@ -37,8 +39,8 @@ function drawSaws() {
       for (let i = 0; i < SAW_SIDES+1; i++) {
         let wid = 360 / SAW_SIDES;
         points.push({
-          x: saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10)) * saw.radius, 
-          y: saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10)) * saw.radius
+          x: saw.x + width/2  + Math.sin(deg2rad(wid*i+millis()/10)) * saw.radius, 
+          y: saw.y + height/2 - Math.cos(deg2rad(wid*i+millis()/10)) * saw.radius
         });
       } 
   
@@ -51,8 +53,8 @@ function drawSaws() {
       for (let i = 0; i < SAW_SIDES+1; i++) {
         let wid = 360 / SAW_SIDES;
         vertex(
-          saw.x + o.x + Math.sin(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius, 
-          saw.y + o.y - Math.cos(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius
+          saw.x + width/2  + Math.sin(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius, 
+          saw.y + height/2 - Math.cos(deg2rad(wid*i+millis()/10*saw.rotDir)) * saw.radius
         );
       }
   
