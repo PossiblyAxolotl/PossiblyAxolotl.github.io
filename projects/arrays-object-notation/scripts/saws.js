@@ -105,9 +105,8 @@ function collideWithSaws(p) {
   for (let saw of shared.discs) {
     // only if fully visible
     if (saw.alpha >= 255) {
-      if (dist(p.pos.x, p.pos.y, saw.x, saw.y) < saw.radius) {
-        p.alive = false;
-        p.colour[3] = 150; // alpha
+      if (dist(p.pos.x, p.pos.y, saw.x, saw.y) < saw.radius && p.alive) {
+        killPlayer(p);
       }
     }
   }

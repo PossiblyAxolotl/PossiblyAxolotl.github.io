@@ -4,8 +4,9 @@
 //
 // Extra for Experts:
 // - p5party online multiplayer
-// - the game does some weird funky stuff where it processes as if (0,0) is the middle of the screen if that counts
+// - the game does some weird funky stuff where it acts as though (0,0) is the middle of the screen if that counts
 // - wobbly vector shapes, separate files
+// - sfx (made with https://www.bfxr.net/)
 
 const ROOM_WIDTH = 400;
 const ROOM_HEIGHT = 400;
@@ -19,7 +20,14 @@ let font;
 
 let timer = null;
 
+let soundDeath;
+let soundStart;
+
 function preload() {
+  soundFormats('wav');
+  soundDeath = loadSound('assets/audio/Explosion');
+  soundStart = loadSound('assets/audio/start');
+
   font = loadFont("assets/Vector Waves.ttf");
 
   // p5party
@@ -129,6 +137,8 @@ function resetToTitle() {
   }
 
   timer = null;
+
+  soundStart.play();
 }
 
 // Host only; only one timer should be made

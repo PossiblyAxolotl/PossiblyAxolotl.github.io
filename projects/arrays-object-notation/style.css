@@ -6,6 +6,7 @@
 html, body {
   margin: 0;
   padding: 0;
+
 }
 
 canvas {
@@ -14,6 +15,8 @@ canvas {
 
 * {
   font-family: "Vector Waves", sans-serif;
+  background-color: black;
+  color: white;
 }
 
 #p5_loading { 

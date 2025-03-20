@@ -7,11 +7,11 @@ function drawPlayers() {
     stroke(p.colour);
     // solid box
     if (p.alive) {
-      rect(width/2 + p.pos.x - 5, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE);
+      rect(width/2 + p.pos.x - PLAYER_SIZE/2, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE);
     } 
     // wobbly box
     else {
-      wobbleRect(width/2 + p.pos.x - 5, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE, 5);
+      wobbleRect(width/2 + p.pos.x - PLAYER_SIZE/2, height/2 + p.pos.y - PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE, 5);
     }
   }
 }
@@ -42,6 +42,13 @@ function processPlayer() {
   
     clampPlayerPosition();
   }
+}
+
+function killPlayer(p) {
+  soundDeath.play();
+  
+  p.alive = false;
+  p.colour[3] = 150; // alpha
 }
 
 function clampPlayerPosition() {
