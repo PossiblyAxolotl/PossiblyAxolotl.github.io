@@ -22,11 +22,13 @@ let timer = null;
 
 let soundDeath;
 let soundStart;
+let soundBgm;
 
 function preload() {
-  soundFormats('wav');
-  soundDeath = loadSound('assets/audio/Explosion');
+  soundFormats('mp3');
+  soundDeath = loadSound('assets/audio/explosion');
   soundStart = loadSound('assets/audio/start');
+  soundBgm   = loadSound('assets/audio/placeholder');
 
   font = loadFont("assets/Vector Waves.ttf");
 
@@ -37,9 +39,9 @@ function preload() {
   );
 
   // p5party global/shared variables
-  shared = partyLoadShared("global");
+  shared  = partyLoadShared("global");
   players = partyLoadGuestShareds();
-  player = partyLoadMyShared({
+  player  = partyLoadMyShared({
     pos: {
       x: random(ROOM_WIDTH) - ROOM_WIDTH/2, 
       y: random(ROOM_HEIGHT) - ROOM_HEIGHT/2, 
@@ -60,6 +62,7 @@ function setup() {
   strokeWeight(2);
   strokeJoin(ROUND);
 
+  //soundBgm.loop(true); // Also starts music, no need for .play()
 
   // create new globals if you're the first one in
   if (partyIsHost()) {
