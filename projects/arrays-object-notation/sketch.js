@@ -22,13 +22,13 @@ let timer = null;
 
 let soundDeath;
 let soundStart;
-let soundBgm;
+// let soundBgm; // background music not implemented
 
 function preload() {
   soundFormats('mp3');
   soundDeath = loadSound('assets/audio/explosion');
   soundStart = loadSound('assets/audio/start');
-  soundBgm   = loadSound('assets/audio/placeholder');
+  //soundBgm   = loadSound('assets/audio/placeholder'); // background music not implemented
 
   font = loadFont("assets/Vector Waves.ttf");
 
