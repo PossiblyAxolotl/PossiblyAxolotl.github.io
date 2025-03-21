@@ -7,6 +7,7 @@
 // - the game does some weird funky stuff where it acts as though (0,0) is the middle of the screen if that counts
 // - wobbly vector shapes, separate files
 // - sfx (made with https://www.bfxr.net/)
+// - music (Python - Rolemusic https://freemusicarchive.org/music/Rolemusic/Pop_Singles_Compilation_2014/03_rolemusic_-_python/)
 
 const ROOM_WIDTH = 400;
 const ROOM_HEIGHT = 400;
@@ -22,13 +23,13 @@ let timer = null;
 
 let soundDeath;
 let soundStart;
-// let soundBgm; // background music not implemented
+let soundBgm;
 
 function preload() {
   soundFormats('mp3');
   soundDeath = loadSound('assets/audio/explosion');
   soundStart = loadSound('assets/audio/start');
-  //soundBgm   = loadSound('assets/audio/placeholder'); // background music not implemented
+  soundBgm   = loadSound('assets/audio/Rolemusic - Python');
 
   font = loadFont("assets/Vector Waves.ttf");
 
@@ -62,7 +63,7 @@ function setup() {
   strokeWeight(2);
   strokeJoin(ROUND);
 
-  //soundBgm.loop(true); // Also starts music, no need for .play()
+  soundBgm.loop(true); // Also starts music, no need for .play()
 
   // create new globals if you're the first one in
   if (partyIsHost()) {
