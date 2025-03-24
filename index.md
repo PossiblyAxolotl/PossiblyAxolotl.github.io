@@ -10,6 +10,7 @@
 * [Bubble Object Notation](/demos/bubbles-object-notation)
 * [2D Array Grid](/demos/2d-array-grid)
 * [Grid Neighbours](/demos/neighbours)
+* [Rectangle Grid](/demos/rectangle-grid)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
