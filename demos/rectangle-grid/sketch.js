@@ -3,6 +3,9 @@
 let grid;
 let cellSize = 10;
 
+let cols;
+let rows;
+
 let slider;
 
 function setup() {
@@ -28,11 +31,14 @@ function draw() {
 }
 
 function createGrid() {
+  cols = Math.ceil(width / cellSize);
+  rows = Math.ceil(height / cellSize);
+  
   grid = [];
-  for (let y = 0; y < height / cellSize; y++) {
+  for (let y = 0; y < rows; y++) {
     grid.push([]);
-    for (let x = 0; x < width / cellSize; x++) {
-      grid[y][x] = Math.round(random());
+    for (let x = 0; x < cols; x++) {
+      grid[y].push(Math.round(random()));
     }
   }
 }
