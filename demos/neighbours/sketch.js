@@ -1,9 +1,8 @@
-// 2D Array Grid Demo
+// 2D Grid Neighbours Demo
 
-const SQUARE_DIMENSIONS = 10;
+const SQUARE_DIMENSIONS = 20;
 
-let cellSize = 50;
-
+let cellSize;
 let grid;
 
 function setup() {
@@ -39,11 +38,20 @@ function mouseClicked() {
   let x = Math.floor(mouseX / cellSize);
   let y = Math.floor(mouseY / cellSize);
 
+  // self
   toggleCell(x, y);
+
+  // neighbours
+  toggleCell(x-1, y);
+  toggleCell(x+1, y);
+  toggleCell(x, y-1);
+  toggleCell(x, y+1);
 }
 
 function toggleCell(x, y) {
-  grid[y][x] = grid[y][x] === 1 ? 0 : 1;
+  if (x >= 0 && x < SQUARE_DIMENSIONS && y >= 0 && y < SQUARE_DIMENSIONS) {
+    grid[y][x] = grid[y][x] === 1 ? 0 : 1;
+  }
 }
 
 function displayGrid() {
