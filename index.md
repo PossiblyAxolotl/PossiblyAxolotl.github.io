@@ -11,6 +11,7 @@
 * [2D Array Grid](/demos/2d-array-grid)
 * [Grid Neighbours](/demos/neighbours)
 * [Rectangle Grid](/demos/rectangle-grid)
+* [Conway's Game of Life](/demos/conways-game-of-life)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
