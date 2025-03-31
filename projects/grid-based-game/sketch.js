@@ -9,22 +9,32 @@
 // createFileInput & drag/drop to load
 
 // amount of tiles wide and tall
-const ROOM_WIDTH = 16;
-const ROOM_HEIGHT = 16;
+let roomWidth = 16;
+let roomHeight = 10;
 // border around edges of map and maximum size for tiles
 const ROOM_MARGIN  = 24;
-const MAX_TILESIZE = 40;
+const MAX_TILESIZE = 50;
 
 // tiles
-const TILE_BLANK = 0;
-const TILE_WALL  = 1;
+let tileSize;
 
-let tileSize = 40;
+const TILE_BLANK  = ".";
+const TILE_WALL   = "#";
+const TILE_ICE    = "%";
+const TILE_BLOCK  = "O";
+const TILE_TARGET = "X";
+const TILE_PLAYER = "@";
 
-let tileSprites = [
-  "nothing, this is a blank tile. Hello!",
-  "red"
-];
+const lowerTiles = [TILE_BLANK, TILE_WALL, TILE_ICE];
+const upperTiles = [TILE_BLOCK, TILE_TARGET, TILE_PLAYER];
+
+let tileSprites = {
+  [TILE_WALL]   : "red",
+  [TILE_ICE]    : "blue",
+  [TILE_BLOCK]  : "brown",
+  [TILE_TARGET] : "coral",
+  [TILE_PLAYER] : "green",
+};
 
 let xMapOffset = 0;
 let yMapOffset = 0;
@@ -33,6 +43,13 @@ let lowerGrid; // immovable elements like walls and decoration
 let upperGrid; // moving things like enemies, items, and player (entities)
 
 let gui;
+
+let levelNumber = 0;
+let level;
+
+function preload() {
+  level = loadStrings("levels/" + levelNumber + ".txt");
+}
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
@@ -44,7 +61,7 @@ function setup() {
   createBlankGrids();
 
   gui = createGui();
-  createButton("test",50,50); // touchgui overwrites built-in functions
+  //createButton("test",50,50); // touchgui overwrites built-in functions
 }
 
 function draw() {
@@ -54,12 +71,17 @@ function draw() {
   drawGui();
 }
 
+function loadLevelFromData(data) {
+  level = data.split("\n");
+  createLevel();
+}
+
 function createBlankGrids() {
   lowerGrid = [];
   upperGrid = [];
 
-  for (let y = 0; y < ROOM_HEIGHT; y++) {
-    let row = Array(ROOM_WIDTH).fill(TILE_BLANK);
+  for (let y = 0; y < roomHeight; y++) {
+    let row = Array(roomWidth).fill(TILE_BLANK);
 
     lowerGrid.push(structuredClone(row)); // different reference
     upperGrid.push(row);
@@ -67,8 +89,8 @@ function createBlankGrids() {
 }
 
 function drawGrids() {
-  for (let y = 0; y < ROOM_HEIGHT; y++) {
-    for (let x = 0; x < ROOM_WIDTH; x++) {
+  for (let y = 0; y < roomHeight; y++) {
+    for (let x = 0; x < roomWidth; x++) {
       let lowerTile = lowerGrid[y][x];
       let upperTile = upperGrid[y][x];
 
@@ -76,20 +98,58 @@ function drawGrids() {
       square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
 
       // draw lowerTile
-      if (lowerTile > 0) {
+      if (lowerTile !== TILE_BLANK) {
         fill(tileSprites[lowerTile]);
         square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
       }
 
       // draw upperTile
+      if (upperTile !== TILE_BLANK) {
+        fill(tileSprites[upperTile]);
+        square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+      }
     }
   }
 }
 
+function populateLowerGrid() {
+  for (let row = 0; row < roomHeight; row++) {
+    for (let tile = 0; tile < roomWidth; tile++) {
+      let currentTile = level[row][tile];
+
+      if (lowerTiles.includes(currentTile)) {
+        lowerGrid[row][tile] = currentTile;
+      }
+    }
+  }
+}
+
+function populateUpperGrid() {
+  for (let row = 0; row < roomHeight; row++) {
+    for (let tile = 0; tile < roomWidth; tile++) {
+      let currentTile = level[row][tile];
+      
+      if (upperTiles.includes(currentTile)) {
+        upperGrid[row][tile] = currentTile;
+      }
+    }
+  }
+}
+
+function createLevel() {
+  roomHeight = level.length-1;
+  roomWidth = level[0].length-1;
+
+  createBlankGrids();
+
+  populateLowerGrid();
+  populateUpperGrid();
+}
+
 function figureOutGameDimensions() {
-  if (height - ROOM_MARGIN < ROOM_HEIGHT * MAX_TILESIZE || width - ROOM_MARGIN < ROOM_WIDTH * MAX_TILESIZE) {
-    let tileSizeX = (width - ROOM_MARGIN)  / ROOM_WIDTH;
-    let tileSizeY = (height - ROOM_MARGIN) / ROOM_HEIGHT;
+  if (height - ROOM_MARGIN < roomHeight * MAX_TILESIZE || width - ROOM_MARGIN < roomWidth * MAX_TILESIZE) {
+    let tileSizeX = (width - ROOM_MARGIN)  / roomWidth;
+    let tileSizeY = (height - ROOM_MARGIN) / roomHeight;
 
     tileSize = tileSizeX > tileSizeY ? tileSizeY : tileSizeX;
   } 
@@ -98,14 +158,14 @@ function figureOutGameDimensions() {
   }
 
 
-  xMapOffset = width  / 2 - tileSize * (ROOM_WIDTH  / 2);
-  yMapOffset = height / 2 - tileSize * (ROOM_HEIGHT / 2);
+  xMapOffset = width  / 2 - tileSize * (roomWidth  / 2);
+  yMapOffset = height / 2 - tileSize * (roomHeight / 2);
 }
 
 function fileDropped(file) {
-  if (file.subtype === "json") {
-    // load level
-  }
+  if (file.type === "text") {
+    loadLevelFromData(file.data);
+  };
 }
 
 // Window settings

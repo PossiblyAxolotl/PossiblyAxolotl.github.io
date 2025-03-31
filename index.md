@@ -13,6 +13,7 @@
 * [Rectangle Grid](/demos/rectangle-grid)
 * [Conway's Game of Life](/demos/conways-game-of-life)
 * [Character Moving in Grid](/demos/character-movement)
+* [Platformer - pre-written](/demos/platformer)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
