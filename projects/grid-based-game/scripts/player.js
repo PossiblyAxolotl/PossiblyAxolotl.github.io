@@ -6,7 +6,34 @@ function movePlayer(x, y) {
     y = 0;
   }
 
-  let tilesToMoveTo = checkGrid(x, y);
+  // check if within bounds   
+  if (!isWithinBounds(x+player.x, y+player.y)) {
+    return false;
+  }
 
-  // moveTile(x,y,dx,dy) moves tile if allowed, returns true or false
+  // save map for undo
+  previousGrids.push({
+    upper: structuredClone(upperGrid),
+    lower: structuredClone(lowerGrid),
+    player: structuredClone(player)
+  });
+
+  let result = true;
+
+  // push blocks if a block is there
+  if (mget(player.x + x, player.y + y).upper === TILE_BLOCK) {
+    result = moveTile(player.x + x, player.y + y, x, y);
+    console.log(result);
+  }
+
+  // if block was pushed or nothing there
+  if (result) {
+    result = moveTile(player.x, player.y, x, y);
+  }
+
+  // move the player
+  if (result) {
+    player.x += x;
+    player.y += y;
+  }
 }

@@ -60,14 +60,42 @@ function populateUpperGrid() {
         upperGrid[row][tile] = currentTile;
 
         if (currentTile === "@") { // add player info
-          player.x = tile;
-          player.y = row;
+          player.x = Number(tile);
+          player.y = Number(row);
         }
       }
     }
   }
 }
 
-function checkGrid(x, y) {
+function mget(x, y) { // named after PICO-8 mget function https://pico-8.fandom.com/wiki/Mget
   return {lower: lowerGrid[y][x], upper: upperGrid[y][x]};
+}
+
+function mset(x, y, t) {
+  upperGrid[y][x] = t;
+}
+
+function isWithinBounds(x, y) {
+  return !(x < 0 || x >= roomWidth || y < 0 || y >= roomHeight);
+}
+
+function moveTile(x, y, dx, dy) { // upper grid can be moved only, lower one is static
+  // immediately check if within bounds
+  if (!isWithinBounds(x+dx, y+dy)) {
+    return false;
+  }
+
+  let tileToMove = mget(x, y).upper;
+
+  let moveTo = mget(x + dx, y + dy);
+
+  if (moveTo.lower !== TILE_WALL && moveTo.upper !== TILE_BLOCK) {
+    mset(x, y, TILE_BLANK);
+    mset(x + dx, y + dy, tileToMove);
+
+    return true;
+  }
+
+  return false;
 }
