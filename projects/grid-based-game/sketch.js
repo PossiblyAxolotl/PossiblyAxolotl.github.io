@@ -1,15 +1,17 @@
 // Project Title
 // Your Name
-// Tueesday, April 8
+// Thursday, April 10
+// Due at 1:12pm (start of class)
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-// uses https://github.com/L05/p5.touchgui for gui elements
+// Uses https://github.com/L05/p5.touchgui for gui elements
 // Allow drag & drop level loading
+// Multi-layer grid to allow certain elements to be overlapped easily
 
 // amount of tiles wide and tall
-let roomWidth = 16;
-let roomHeight = 10;
+let roomWidth  = 0;
+let roomHeight = 0;
 // border around edges of map and maximum size for tiles
 const ROOM_MARGIN_X = 64;
 const ROOM_MARGIN_Y = 100;
@@ -41,19 +43,18 @@ let tileSprites = {
 let xMapOffset = 0;
 let yMapOffset = 0;
 
-let levelNumber = 0;
-let levelName = "";
+let levelName = "Cool Sokoban Title";
 let level;
 
 // undo moves
 let previousGrids = [];
 
-// Other ui-ey stuff - not related to gameplay overall
-let gui, font, buttonReset, buttonBack;
+// Other gui stuff - not related to gameplay overall
+let gui, font, buttonReset, buttonBack, buttonFullscreen;
 
 function preload() {
   font = loadFont("assets/Superfats.ttf");
-  level = loadStrings("levels/" + levelNumber + ".txt");
+  level = loadStrings("levels/0.txt");
 }
 
 let b;
@@ -74,15 +75,10 @@ function setup() {
   createBlankGrids();
 
   gui = createGui();
+  gui.setFont(font);
   b = createButton("test",50,50); // touchgui overwrites built-in functions
 
-  buttonReset = createButton("Reset", width/2-64-48, height-40);
-  buttonReset.visible = false;
-  buttonReset.enabled = false;
-
-  buttonBack  = createButton("Undo", width/2-64+48, height-40);
-  buttonBack.visible = false;
-  buttonBack.enabled = false;
+  setupButtons();
 }
 
 function draw() {
@@ -97,6 +93,7 @@ function draw() {
   processButtons();
 
   if (b.isPressed) {
+    //window.open("./doc.md");
     initialLevelSetup();
     createLevel();
 
@@ -108,11 +105,24 @@ function draw() {
 }
 
 function keyPressed() {
+  // player movement
   let i = input();
   movePlayer(i.x, i.y);
 }
 
 // buttons
+function setupButtons() {
+  buttonReset = createButton("Reset", width/2-64-48, height-40);
+  buttonReset.visible = false;
+  buttonReset.enabled = false;
+
+  buttonBack  = createButton("Undo", width/2-64+48, height-40);
+  buttonBack.visible = false;
+  buttonBack.enabled = false;
+
+  buttonFullscreen = createButton("Fullscreen", 3, 3);
+}
+
 function showGameButtons() {
   buttonReset.visible = true;
   buttonReset.enabled = true;
@@ -122,32 +132,38 @@ function showGameButtons() {
 }
 
 function processButtons() {
+  // fullscreen button
+  if (buttonFullscreen.isPressed) {
+    fullscreen(!fullscreen());
+  }
+  
+  // reset level button
   if (buttonReset.isPressed) {
     createLevel();
     previousGrids = [];
   }
 
+  // undo button
   if (buttonBack.isPressed && previousGrids.length > 0) {
+    // undo grid
     let previousGrid = previousGrids.pop();
     upperGrid = previousGrid.upper;
     lowerGrid = previousGrid.lower;
 
+    // move player back
     player = previousGrid.player;
   }
 }
 
-// allow drag & drop
+// drag & drop files
 function fileDropped(file) {
   if (file.type === "text") {
     loadLevelFromData(file.data);
+    showGameButtons();
   };
 }
 
 // Window settings
-/*function doubleClicked() {
-  fullscreen(!fullscreen());
-}*/
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   figureOutGameDimensions();

@@ -99,3 +99,31 @@ function moveTile(x, y, dx, dy) { // upper grid can be moved only, lower one is 
 
   return false;
 }
+
+// gameplay tile checks
+function checkIfTileOver(x, y, lower, upper) {
+  // check if the lower and upper tile match at the specified x and y
+  let tile = mget(x, y);
+
+  return tile.lower === lower && tile.upper === upper;
+}
+
+function checkIfAllTilesOver(lower, upper) {
+  // check each tile of a grid with the prev. func.
+  for (let y = 0; y < roomHeight; y++) {
+    for (let x = 0; x < roomWidth; x++) {
+      // if not all match
+      if (!checkIfTileOver(x, y, lower, upper) && mget(x, y).lower === lower) {
+        return false;
+      }
+    }
+  }
+
+  // all match, no premature return
+  return true;
+}
+
+function allChecks() {
+  // check if player is above the exit and blocks are above the targets
+  return checkIfAllTilesOver(TILE_EXIT, TILE_PLAYER) && checkIfAllTilesOver(TILE_TARGET, TILE_BLOCK);
+}

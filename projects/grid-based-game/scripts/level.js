@@ -4,6 +4,7 @@ function loadLevelFromData(data) {
   createLevel();
 }
 
+// only run the first time; cuts off last line of file and sets it as level title
 function initialLevelSetup() {
   levelName = level.pop();
 }

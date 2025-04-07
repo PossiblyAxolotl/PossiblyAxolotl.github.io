@@ -23,7 +23,7 @@ function movePlayer(x, y) {
   // push blocks if a block is there
   if (mget(player.x + x, player.y + y).upper === TILE_BLOCK) {
     result = moveTile(player.x + x, player.y + y, x, y);
-    console.log(result);
+    //console.log(result);
   }
 
   // if block was pushed or nothing there
