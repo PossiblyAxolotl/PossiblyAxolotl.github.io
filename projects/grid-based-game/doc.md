@@ -32,8 +32,10 @@ In order to load a level simply drag and drop the text file over the game window
 
 Multiple levels can be strung together by adding the path to the next level after the level title like this:
 ```
-.@
-&.
+....
+..@.
+.&..
+....
 Cool level -> https://gist.githubusercontent.com/PossiblyAxolotl/b4bbffe197906b00a7fda85640592683/raw/897316226ea098176485dd80c0a479fedc15dbfb/level2.soko.txt
 ```
 

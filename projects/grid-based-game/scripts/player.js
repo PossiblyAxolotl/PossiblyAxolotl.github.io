@@ -42,8 +42,7 @@ function movePlayer(x, y) {
   if (allChecks()) {
     playerCanMove = false;
     hideGameButtons();
-    console.log("level done!");
 
-    setTimeout(levelFinished, 200);
+    setTimeout(levelFinished, 400);
   }
 }

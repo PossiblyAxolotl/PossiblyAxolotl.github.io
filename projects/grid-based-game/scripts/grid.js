@@ -94,6 +94,10 @@ function moveTile(x, y, dx, dy) { // upper grid can be moved only, lower one is 
     mset(x, y, TILE_BLANK);
     mset(x + dx, y + dy, tileToMove);
 
+    if (moveTo.lower === TILE_ICE) {
+      setTimeout(function() { moveTile(x + dx, y + dy, dx, dy) }, 100);
+    }
+
     return true;
   }
 

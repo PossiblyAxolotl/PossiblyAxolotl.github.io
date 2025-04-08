@@ -42,7 +42,8 @@ function levelFinished() {
   if (nextLevel) {
     loadStrings(nextLevel, loadLevelFromStrings);
   }
+  // no next level provided
   else {
-    
+    gotoTitle();
   }
 }
