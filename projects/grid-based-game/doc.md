@@ -37,4 +37,6 @@ Multiple levels can be strung together by adding the path to the next level afte
 Cool level -> https://gist.githubusercontent.com/PossiblyAxolotl/b4bbffe197906b00a7fda85640592683/raw/897316226ea098176485dd80c0a479fedc15dbfb/level2.soko.txt
 ```
 
-It can be hosted anywhere as long as the level can be accessed as plain text from the URL. Built-in levels just give a path (i.e. level1 -> levels/level2.soko.txt) as they're all hosted on the same server.
+You must include a space on either side of the arrow in ` -> `. The next level can be hosted anywhere as long as the level can be accessed as plain text from the URL. 
+
+Built-in levels just give a path (i.e. level1 -> levels/level2.soko.txt) as they're all hosted on the same server.
