@@ -1,12 +1,30 @@
+let nextLevel;
+
 function loadLevelFromData(data) {
   level = data.replace("\r", "").split("\n");
   initialLevelSetup();
   createLevel();
 }
 
+function loadLevelFromStrings(data) {
+  level = data;
+  initialLevelSetup();
+  createLevel();
+}
+
 // only run the first time; cuts off last line of file and sets it as level title
 function initialLevelSetup() {
-  levelName = level.pop();
+  let levelMeta = level.pop();
+
+  // if level leads into another
+  levelMeta = levelMeta.split(" -> ");
+
+  nextLevel = levelMeta[1];
+  levelName = levelMeta[0];
+
+  // activate player & ui
+  playerCanMove = true;
+  showGameButtons();
 }
 
 function createLevel() {
@@ -17,4 +35,14 @@ function createLevel() {
 
   populateLowerGrid();
   populateUpperGrid();
+}
+
+function levelFinished() {
+  // if the level leads into another (levelname -> level2path)
+  if (nextLevel) {
+    loadStrings(nextLevel, loadLevelFromStrings);
+  }
+  else {
+    
+  }
 }

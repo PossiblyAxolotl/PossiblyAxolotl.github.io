@@ -17,6 +17,11 @@ const ROOM_MARGIN_X = 64;
 const ROOM_MARGIN_Y = 100;
 const MAX_TILESIZE  = 100; // large number, makes sure it doesn't fill fullscreen with small maps
 
+const LOWER_BUTTON_OFFSET_X = 70;
+const LOWER_BUTTON_OFFSET_Y = 42;
+
+const HALF_BUTTON_WIDTH = 64;
+
 // tiles
 let tileSize;
 
@@ -50,7 +55,7 @@ let level;
 let previousGrids = [];
 
 // Other gui stuff - not related to gameplay overall
-let gui, font, buttonReset, buttonBack, buttonFullscreen;
+let gui, font, buttonReset, buttonBack, buttonFullscreen, buttonCustom;
 
 function preload() {
   font = loadFont("assets/Superfats.ttf");
@@ -84,11 +89,11 @@ function setup() {
 function draw() {
   background(220);
   drawGrids();
+  
   figureOutGameDimensions();
+  
   drawGui();
-
-  fill("gray");
-  text(levelName, width/2,24);
+  drawLevelTitle();
 
   processButtons();
 
@@ -112,15 +117,16 @@ function keyPressed() {
 
 // buttons
 function setupButtons() {
-  buttonReset = createButton("Reset", width/2-64-48, height-40);
+  buttonReset = createButton("Reset", width/2 - HALF_BUTTON_WIDTH - LOWER_BUTTON_OFFSET_X, height - LOWER_BUTTON_OFFSET_Y);
   buttonReset.visible = false;
   buttonReset.enabled = false;
 
-  buttonBack  = createButton("Undo", width/2-64+48, height-40);
+  buttonBack  = createButton("Undo", width/2 - HALF_BUTTON_WIDTH + LOWER_BUTTON_OFFSET_X, height - LOWER_BUTTON_OFFSET_Y);
   buttonBack.visible = false;
   buttonBack.enabled = false;
 
   buttonFullscreen = createButton("Fullscreen", 3, 3);
+  buttonCustom = createButton("Custom", 3, 40);
 }
 
 function showGameButtons() {
@@ -131,12 +137,33 @@ function showGameButtons() {
   buttonBack.enabled = true;
 }
 
+function hideGameButtons() {
+  buttonReset.visible = false;
+  buttonReset.enabled = false;
+
+  buttonBack.visible = false;
+  buttonBack.enabled = false;
+}
+
+function moveButtons() {
+  buttonReset.x = width/2 - HALF_BUTTON_WIDTH - LOWER_BUTTON_OFFSET_X;
+  buttonReset.y = height - LOWER_BUTTON_OFFSET_Y;
+
+  buttonBack.x = width/2 - HALF_BUTTON_WIDTH + LOWER_BUTTON_OFFSET_X;
+  buttonBack.y = height - LOWER_BUTTON_OFFSET_Y;
+}
+
 function processButtons() {
   // fullscreen button
   if (buttonFullscreen.isPressed) {
     fullscreen(!fullscreen());
   }
   
+  // custom level docs
+  if (buttonCustom.isPressed) {
+    window.open("./doc");
+  }
+
   // reset level button
   if (buttonReset.isPressed) {
     createLevel();
@@ -155,6 +182,11 @@ function processButtons() {
   }
 }
 
+function drawLevelTitle() {
+  fill("gray");
+  text(levelName, width/2,24);
+}
+
 // drag & drop files
 function fileDropped(file) {
   if (file.type === "text") {
@@ -168,8 +200,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   figureOutGameDimensions();
 
-  buttonReset.x = width/2-64;
-  buttonReset.y = height-40;
+  moveButtons();
 }
 
 function figureOutGameDimensions() {

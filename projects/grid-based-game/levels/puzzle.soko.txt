@@ -3,4 +3,4 @@
 OOO
 ...
 #&#
-The puzzle
+The puzzle -> levels/onlyblocks.soko.txt

@@ -1,4 +1,5 @@
 let player = {x: 0, y: 0};
+let playerCanMove = true;
 
 function movePlayer(x, y) {
   // ensure only one input exists, arbitrarily prioritizes horizontal
@@ -7,7 +8,7 @@ function movePlayer(x, y) {
   }
 
   // check if within bounds   
-  if (!isWithinBounds(x+player.x, y+player.y)) {
+  if (!isWithinBounds(x+player.x, y+player.y) || !playerCanMove) {
     return false;
   }
 
@@ -35,5 +36,14 @@ function movePlayer(x, y) {
   if (result) {
     player.x += x;
     player.y += y;
+  }
+
+  // only perform checks for level completion after all movement is done
+  if (allChecks()) {
+    playerCanMove = false;
+    hideGameButtons();
+    console.log("level done!");
+
+    setTimeout(levelFinished, 200);
   }
 }

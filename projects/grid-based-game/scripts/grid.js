@@ -119,7 +119,7 @@ function checkIfAllTilesOver(lower, upper) {
     }
   }
 
-  // all match, no premature return
+  // all match, no early return
   return true;
 }
 
