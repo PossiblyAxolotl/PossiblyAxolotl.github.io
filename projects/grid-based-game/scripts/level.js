@@ -35,6 +35,8 @@ function createLevel() {
 
   populateLowerGrid();
   populateUpperGrid();
+
+  previousGrids = [];
 }
 
 function checkForWin() {
