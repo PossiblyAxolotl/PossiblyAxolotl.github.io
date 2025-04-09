@@ -21,24 +21,28 @@ function drawGrids() {
       let upperTile = upperGrid[y][x];
 
       // draw backing grid
-      fill((x + y) % 2 === 0 ? "white" : "gray");
-      square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+      // fill((x + y) % 2 === 0 ? "white" : "gray");
+      // square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+      image(imgTile, x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize, tileSize);
 
       // draw lowerTile
       if (lowerTile !== TILE_BLANK) {
-        fill(tileSprites[lowerTile]);
-        square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+        //fill(tileSprites[lowerTile]);
+        //square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+        image(tileSprites[lowerTile], x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize, tileSize);
       }
 
       // draw upperTile
       if (upperTile !== TILE_BLANK) {
-        fill(tileSprites[upperTile]);
-        square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+        //fill(tileSprites[upperTile]);
+        //square(x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize);
+        image(tileSprites[upperTile], x*tileSize + xMapOffset, y*tileSize + yMapOffset, tileSize, tileSize);
       }
     }
   }
 }
 
+// map generation
 function populateLowerGrid() {
   for (let row = 0; row < roomHeight; row++) {
     for (let tile = 0; tile < roomWidth; tile++) {
@@ -68,6 +72,7 @@ function populateUpperGrid() {
   }
 }
 
+// map manipulation
 function mget(x, y) { // named after PICO-8 mget function https://pico-8.fandom.com/wiki/Mget
   return {lower: lowerGrid[y][x], upper: upperGrid[y][x]};
 }
@@ -94,14 +99,30 @@ function moveTile(x, y, dx, dy) { // upper grid can be moved only, lower one is 
     mset(x, y, TILE_BLANK);
     mset(x + dx, y + dy, tileToMove);
 
-    if (moveTo.lower === TILE_ICE) {
-      setTimeout(function() { moveTile(x + dx, y + dy, dx, dy) }, 100);
+    // move the player
+    if (tileToMove === TILE_PLAYER) {
+      player.x = x + dx;
+      player.y = y + dy;
     }
 
-    return true;
+    // keep moving if on ice and disable player movement until finished
+    if (moveTo.lower === TILE_ICE) {
+      playerCanMove = false;
+
+      // slowly move the object over time
+      setTimeout(function() { 
+        playerCanMove = true;
+
+        moveTile(x + dx, y + dy, dx, dy);
+      }, 100);
+    }
+
+    checkForWin();
+
+    return true; // successfully moved
   }
 
-  return false;
+  return false; // did not move
 }
 
 // gameplay tile checks

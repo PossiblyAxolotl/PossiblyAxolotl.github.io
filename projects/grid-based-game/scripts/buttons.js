@@ -1,3 +1,9 @@
+const LOWER_BUTTON_OFFSET_X = 70;
+const LOWER_BUTTON_OFFSET_Y = 42;
+const HALF_BUTTON_WIDTH     = 64;
+
+let buttonReset, buttonBack, buttonFullscreen, buttonCustom;
+
 function setupButtons() {
   buttonReset = createButton("Reset", width/2 - HALF_BUTTON_WIDTH - LOWER_BUTTON_OFFSET_X, height - LOWER_BUTTON_OFFSET_Y);
   buttonReset.visible = false;

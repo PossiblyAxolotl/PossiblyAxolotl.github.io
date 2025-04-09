@@ -31,18 +31,4 @@ function movePlayer(x, y) {
   if (result) {
     result = moveTile(player.x, player.y, x, y);
   }
-
-  // move the player
-  if (result) {
-    player.x += x;
-    player.y += y;
-  }
-
-  // only perform checks for level completion after all movement is done
-  if (allChecks()) {
-    playerCanMove = false;
-    hideGameButtons();
-
-    setTimeout(levelFinished, 400);
-  }
 }

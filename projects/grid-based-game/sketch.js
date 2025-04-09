@@ -1,13 +1,15 @@
-// Project Title
-// Your Name
+// Sokoban
+// PossiblyAxolotl
 // Thursday, April 10
 // Due at 1:12pm (start of class)
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 // Uses https://github.com/L05/p5.touchgui for gui elements
 // Allow drag & drop level loading
 // Multi-layer grid to allow certain elements to be overlapped easily
+// Sort of recursive tile movement for ice
+
+// assets from https://kenney.nl/assets/scribble-platformer
 
 // amount of tiles wide and tall
 let roomWidth  = 0;
@@ -15,12 +17,7 @@ let roomHeight = 0;
 // border around edges of map and maximum size for tiles
 const ROOM_MARGIN_X = 64;
 const ROOM_MARGIN_Y = 100;
-const MAX_TILESIZE  = 100; // large number, makes sure it doesn't fill fullscreen with small maps
-
-const LOWER_BUTTON_OFFSET_X = 70;
-const LOWER_BUTTON_OFFSET_Y = 42;
-
-const HALF_BUTTON_WIDTH = 64;
+const MAX_TILESIZE  = 75; // large number, makes sure it doesn't fill fullscreen with small maps
 
 // tiles
 let tileSize;
@@ -45,6 +42,8 @@ let tileSprites = {
   [TILE_EXIT]   : "yellow",
 };
 
+let imgTile;
+
 let xMapOffset = 0;
 let yMapOffset = 0;
 
@@ -55,11 +54,20 @@ let level;
 let previousGrids = [];
 
 // Other gui stuff - not related to gameplay overall
-let gui, font, buttonReset, buttonBack, buttonFullscreen, buttonCustom;
+let gui, font;
 
 function preload() {
   font = loadFont("assets/Superfats.ttf");
   level = loadStrings("levels/0.txt");
+
+  tileSprites[TILE_WALL]   = loadImage("assets/sprites/tile_brick.png");
+  tileSprites[TILE_ICE]    = loadImage("assets/sprites/tile_diagonal.png");
+  tileSprites[TILE_BLOCK]  = loadImage("assets/sprites/tile_crateDiagonal.png");
+  tileSprites[TILE_TARGET] = loadImage("assets/sprites/ui_button.png");
+  tileSprites[TILE_PLAYER] = loadImage("assets/sprites/character_roundRed.png");
+  tileSprites[TILE_EXIT]   = loadImage("assets/sprites/tile_door.png");
+
+  imgTile = loadImage("assets/sprites/ui_numPeriod.png");
 }
 
 let b;

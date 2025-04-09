@@ -37,6 +37,15 @@ function createLevel() {
   populateUpperGrid();
 }
 
+function checkForWin() {
+  if (allChecks()) {
+    playerCanMove = false;
+    hideGameButtons();
+
+    setTimeout(levelFinished, 400);
+  }
+}
+
 function levelFinished() {
   // if the level leads into another (levelname -> level2path)
   if (nextLevel) {
