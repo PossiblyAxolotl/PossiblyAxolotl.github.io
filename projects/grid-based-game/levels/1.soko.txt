@@ -1,7 +1,0 @@
-....@...
-.O.#....
-.X%%..#O
-.......#
-.......#
-......##
-Level Title -> levels/puzzle.soko.txt
