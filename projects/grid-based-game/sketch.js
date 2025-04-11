@@ -70,7 +70,6 @@ function preload() {
   imgTile = loadImage("assets/sprites/ui_numPeriod.png");
 }
 
-let b;
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
@@ -85,13 +84,12 @@ function setup() {
 
   figureOutGameDimensions();
 
-  createBlankGrids();
-
   gui = createGui();
   gui.setFont(font);
-  b = createButton("test",50,50); // touchgui overwrites built-in functions
 
   setupButtons();
+
+  gotoTitle();
 }
 
 function draw() {
@@ -104,17 +102,6 @@ function draw() {
   drawLevelTitle();
 
   processButtons();
-
-  if (b.isPressed) {
-    //window.open("./doc.md");
-    initialLevelSetup();
-    createLevel();
-
-    b.visible = false;
-    b.enabled = false;
-
-    showGameButtons();
-  }
 }
 
 function keyPressed() {
@@ -125,7 +112,12 @@ function keyPressed() {
 
 // go to title screen
 function gotoTitle() {
+  roomWidth = 8;
+  roomHeight = 6;
+  createBlankGrids();
+  levelName = "Sokoban";
 
+  showTitleButtons();
 }
 
 function drawLevelTitle() {

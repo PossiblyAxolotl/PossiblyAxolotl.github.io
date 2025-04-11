@@ -1,8 +1,9 @@
 const LOWER_BUTTON_OFFSET_X = 70;
 const LOWER_BUTTON_OFFSET_Y = 42;
 const HALF_BUTTON_WIDTH     = 64;
+const START_BUTTON_Y_OFFSET = 16;
 
-let buttonReset, buttonBack, buttonFullscreen, buttonCustom;
+let buttonReset, buttonBack, buttonFullscreen, buttonCustom, buttonStart;
 
 function setupButtons() {
   buttonReset = createButton("Reset", width/2 - HALF_BUTTON_WIDTH - LOWER_BUTTON_OFFSET_X, height - LOWER_BUTTON_OFFSET_Y);
@@ -15,6 +16,8 @@ function setupButtons() {
 
   buttonFullscreen = createButton("Fullscreen", 3, 3);
   buttonCustom = createButton("Custom", 3, 40);
+
+  buttonStart = createButton("Start", width/2 - HALF_BUTTON_WIDTH, height/2-START_BUTTON_Y_OFFSET); // touchgui overwrites built-in functions
 }
 
 function processButtons() {
@@ -26,6 +29,13 @@ function processButtons() {
   // custom level docs
   if (buttonCustom.isPressed) {
     window.open("./doc");
+  }
+
+  // play button
+  if (buttonStart.isPressed) {
+    loadStrings("levels/0.txt", loadLevelFromStrings);
+
+    showGameButtons();
   }
 
   // reset level button
@@ -53,6 +63,14 @@ function showGameButtons() {
 
   buttonBack.visible = true;
   buttonBack.enabled = true;
+
+  buttonStart.visible = false;
+  buttonStart.enabled = false;
+}
+
+function showTitleButtons() {
+  buttonStart.visible = true;
+  buttonStart.enabled = true;
 }
 
 function hideGameButtons() {
@@ -70,4 +88,7 @@ function moveButtons() {
 
   buttonBack.x = width/2 - HALF_BUTTON_WIDTH + LOWER_BUTTON_OFFSET_X;
   buttonBack.y = height - LOWER_BUTTON_OFFSET_Y;
+
+  buttonStart.x = width/2 - HALF_BUTTON_WIDTH;
+  buttonStart.y = height/2-START_BUTTON_Y_OFFSET;
 }
