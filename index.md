@@ -14,8 +14,10 @@
 * [Conway's Game of Life](/demos/conways-game-of-life)
 * [Character Moving in Grid](/demos/character-movement)
 * [Platformer - pre-written](/demos/platformer)
+* [Walker OOP](/demos/walker)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
 * [Arrays & Object Notation](/projects/arrays-object-notation)
 * [Grid-based Game](/projects/grid-based-game)
+* [Major Project](/CS30-Major-Project)
