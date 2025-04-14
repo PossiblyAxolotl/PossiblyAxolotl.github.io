@@ -15,6 +15,7 @@
 * [Character Moving in Grid](/demos/character-movement)
 * [Platformer - pre-written](/demos/platformer)
 * [Walker OOP](/demos/walker)
+* [Fireworks OOP](/demos/fireworks)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
