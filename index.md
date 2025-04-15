@@ -16,6 +16,7 @@
 * [Platformer - pre-written](/demos/platformer)
 * [Walker OOP](/demos/walker)
 * [Fireworks OOP](/demos/fireworks)
+* [Connected Nodes OOP](/demos/nodes)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
