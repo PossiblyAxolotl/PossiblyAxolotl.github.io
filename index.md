@@ -17,6 +17,7 @@
 * [Walker OOP](/demos/walker)
 * [Fireworks OOP](/demos/fireworks)
 * [Connected Nodes OOP](/demos/nodes)
+* [2d Collide Demo](/demos/2d-collide)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
