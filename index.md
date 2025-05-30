@@ -19,6 +19,7 @@
 * [Connected Nodes OOP](/demos/nodes)
 * [2d Collide Demo](/demos/2d-collide)
 * [Object Inheritance](/demos/object-inheritance)
+* [Sierpinski Triangle](/demos/triangle)
 
 # CS30 Projects
 * [Interactive Scene](/projects/interactive-scene)
